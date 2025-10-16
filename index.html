@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TG Stars</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #ffd700;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-10px); opacity: 0.9; }
+      to { transform: translateY(100vh); opacity: 0; }
+    }
+
+    .container {
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease-out;
+    }
+
+    [data-animate].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .logo {
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      border-radius: 25px;
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+      margin-bottom: 30px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 48px;
+      font-weight: 600;
+      color: #ffd700;
+      text-shadow: 0 0 25px #ffd700;
+      margin-top: 20px;
+    }
+
+    .price-list {
+      margin-top: 50px;
+      display: inline-block;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 25px 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .price-list h2 {
+      color: #ffd700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .price-item {
+      font-size: 20px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    .price-item:hover {
+      color: #ffd700;
+      transform: scale(1.05);
+    }
+
+    .price-item span {
+      font-weight: 600;
+    }
+
+    .base-price {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #ccc;
+      text-align: center;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 40px;
+      padding: 15px 35px;
+      background: linear-gradient(45deg, #ffd700, #ffcc00);
+      color: #000;
+      font-weight: 600;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 0 25px #ffd700;
+      transition: 0.3s;
+      animation: pulse 2s infinite;
+    }
+
+    .button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 40px #ffea00;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 10px #ffd700; }
+      50% { box-shadow: 0 0 30px #ffcc00; }
+      100% { box-shadow: 0 0 10px #ffd700; }
+    }
+
+    footer {
+      margin-top: 80px;
+      color: #aaa;
+      font-size: 16px;
+      padding-bottom: 100px;
+    }
+
+    footer a {
+      color: #ffd700;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stars" id="stars"></div>
+
+  <div class="container">
+    <div data-animate>
+      <img src="image_url.webp" alt="TG Stars" class="logo">
+      <h1>TG Stars</h1>
+    </div>
+
+    <div class="price-list" data-animate>
+      <h2>Прайс-лист 🌟</h2>
+      <div class="price-item"><span>50 звёзд</span> — 79₽</div>
+      <div class="price-item"><span>100 звёзд</span> — 159₽</div>
+      <div class="price-item"><span>150 звёзд</span> — 239₽</div>
+      <div class="price-item"><span>250 звёзд</span> — 399₽</div>
+      <div class="price-item"><span>500 звёзд</span> — 789₽</div>
+      <p class="base-price">💫 Базовый курс: 1,59₽ за звезду</p>
+    </div>
+
+    <div data-animate>
+      <a href="https://t.me/tege_stars_bot" class="button" target="_blank">💥 Купить звёзды</a>
+    </div>
+
+    <footer data-animate>
+      <p>Наш Telegram-канал: <a href="https://t.me/tege_stars" target="_blank">@tege_stars</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const starsContainer = document.getElementById('stars');
+    function createStar() {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 3 + 1;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = Math.random() * window.innerWidth + 'px';
+      star.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      star.style.animationDelay = Math.random() * 5 + 's';
+      starsContainer.appendChild(star);
+      setTimeout(() => star.remove(), 10000);
+    }
+    setInterval(createStar, 100);
+
+    const animatedElements = document.querySelectorAll('[data-animate]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    animatedElements.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
